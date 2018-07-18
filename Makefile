@@ -6,3 +6,6 @@ install:
 
 link:
 	ln -s $(realpath $(exec)) $(dest)
+
+uninstall:
+	rm $(dest)/$(exec)
