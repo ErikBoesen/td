@@ -2,7 +2,7 @@ exec = td
 dest = /usr/local/bin
 
 install:
-	cp $(exec) $(dest)
+	install -m 0755 $(exec) $(dest)
 
 link:
 	ln -s $(realpath $(exec)) $(dest)
