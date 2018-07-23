@@ -4,6 +4,7 @@ from pytodoist import todoist
 import yaml
 import os
 from getpass import getpass
+import argparse
 
 CONFIG_FILE = os.path.expanduser('~') + '/.td.yml'
 config = {
@@ -22,6 +23,13 @@ else:
 
 # TODO: Token login
 api = todoist.login(config['email'], config['password'])
-for task in api.get_tasks():
-    print('{id:x} {content}'.format(id=task.id,
-                                    content=task.content))
+
+parser = argparse.ArgumentParser(description='Manage Todoist from the command line.')
+parser.add_argument('verb')
+
+args = parser.parse_args()
+
+if args.verb == 'list':
+    for task in api.get_tasks():
+        print('{id:x} {content}'.format(id=task.id,
+                                        content=task.content))
