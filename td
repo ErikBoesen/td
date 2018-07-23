@@ -23,9 +23,12 @@ else:
 
 # TODO: Token login
 api = todoist.login(config['email'], config['password'])
+# TODO: Bypass Inbox project entirely
+inbox = api.get_project('Inbox')
 
 parser = argparse.ArgumentParser(description='Manage Todoist from the command line.')
 parser.add_argument('verb')
+parser.add_argument('-m', dest='message', help='message or title for task or other object')
 
 args = parser.parse_args()
 
@@ -33,3 +36,5 @@ if args.verb == 'list':
     for task in api.get_tasks():
         print('{id:x} {content}'.format(id=task.id,
                                         content=task.content))
+if args.verb == 'add':
+    inbox.add_task(args.message)
