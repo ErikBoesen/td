@@ -1,2 +1,2 @@
 PyYAML
-todoist-python
+pytodoist
