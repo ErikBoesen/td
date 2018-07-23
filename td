@@ -23,4 +23,5 @@ else:
 # TODO: Token login
 api = todoist.login(config['email'], config['password'])
 for task in api.get_tasks():
-    print(task)
+    print('{id:x} {content}'.format(id=task.id,
+                                    content=task.content))
