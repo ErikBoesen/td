@@ -37,6 +37,6 @@ args = parser.parse_args()
 if args.verb == 'list':
     for task in api.get_tasks():
         print('{id:x} {content}'.format(id=colored(task.id, 'blue'),
-                                        content=colored(task.content, 'green'))
-if args.verb == 'add':
+                                        content=colored(task.content, 'green')))
+elif args.verb == 'add':
     inbox.add_task(args.message)
