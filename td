@@ -5,6 +5,8 @@ import yaml
 import os
 from getpass import getpass
 import argparse
+from termcolor import colored
+
 
 CONFIG_FILE = os.path.expanduser('~') + '/.td.yml'
 config = {
@@ -34,7 +36,7 @@ args = parser.parse_args()
 
 if args.verb == 'list':
     for task in api.get_tasks():
-        print('{id:x} {content}'.format(id=task.id,
-                                        content=task.content))
+        print('{id:x} {content}'.format(id=colored(task.id, 'blue'),
+                                        content=colored(task.content, 'green'))
 if args.verb == 'add':
     inbox.add_task(args.message)
