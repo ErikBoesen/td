@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
-import todoist
+from pytodoist import todoist
 import yaml
 import os
+from getpass import getpass
 
 CONFIG_FILE = os.path.expanduser('~') + '/.td.yml'
 config = {
@@ -15,13 +16,11 @@ if os.path.isfile(CONFIG_FILE):
         config = yaml.load(f)
 else:
     for key in config.keys():
-        config[key] = input(key + ': ')
+        config[key] = getpass(prompt=key + ': ') if key == 'password' else input(key + ': ')
     with open(CONFIG_FILE, 'w') as f:
         yaml.dump(config, f)
 
-
-api = todoist.TodoistAPI(config['token'])
-#user = api.user.login(config['email'], config['token'])
-response = api.sync()
-
-print(response)
+# TODO: Token login
+api = todoist.login(config['email'], config['password'])
+for task in api.get_tasks():
+    print(task)
