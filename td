@@ -4,8 +4,8 @@ import todoist
 import yaml
 import os
 
-CONFIG_FILE = '.td.yml'
-with open(os.path.expanduser('~') + '/' + CONFIG_FILE, 'r') as f:
+CONFIG_FILE = os.path.expanduser('~') + '/.td.yml'
+with open(CONFIG_FILE, 'r') as f:
     config = yaml.load(f)
 
 api = todoist.TodoistAPI(config['token'])
