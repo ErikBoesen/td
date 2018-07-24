@@ -3,7 +3,6 @@
 from pytodoist import todoist
 import yaml
 import os
-from getpass import getpass
 import argparse
 from termcolor import colored
 
@@ -16,8 +15,6 @@ args = parser.parse_args()
 
 CONFIG_PATH = os.path.expanduser('~') + '/.td.yml'
 config = {
-    'email': '',
-    'password': '',
     'token': '',
 }
 if os.path.isfile(CONFIG_PATH):
@@ -25,7 +22,7 @@ if os.path.isfile(CONFIG_PATH):
         config = yaml.load(f)
 else:
     for key in config.keys():
-        config[key] = getpass(prompt=key + ': ') if key == 'password' else input(key + ': ')
+        config[key] = input(key + ': ')
     with open(CONFIG_PATH, 'w') as f:
         yaml.dump(config, f)
 
