@@ -23,15 +23,15 @@ Any of these commands may require root privileges depending on your environment.
 ## Use
 To list all tasks:
 ```sh
-td list
+td list  # or `td l`
 ```
 To add a task:
 ```sh
-td add -m "Title of task"
+td add -m "Title of task"  # or `td a`
 ```
 To delete a task:
 ```sh
-td delete  # or del
+td delete  # or `td d`
 # select task for deletion in interactive list
 ```
 
