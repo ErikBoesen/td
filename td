@@ -26,7 +26,7 @@ else:
     config = [input(key + ': ') for key in config.keys()]
     with open(CONFIG_PATH, 'w') as f:
         yaml.dump(config, f)
-    os.chmod(CONFIG_PATH, istat.S_IRUSR | stat.S_IRUSR)
+    os.chmod(CONFIG_PATH, stat.S_IRUSR | stat.S_IRUSR)
 
 # Check if group or public can read config and the private details therein.
 # If so, warn user.
