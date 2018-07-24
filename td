@@ -51,7 +51,7 @@ elif args.verb == 'add':
     user.get_project('Inbox').add_task(args.message)
 elif args.verb == 'del' or args.verb == 'delete':
     tasks = user.get_tasks()
-    _, ind = pick(tasks_repr(tasks, color=False))
+    _, ind = pick(tasks_repr(tasks, color=False), title='Select a task to delete.')
     # Another option is to simply use the method `complete`.
     # However, Todoist Premium may be required to get only uncompleted tasks.
     # So, for simplicity and just temporarily, let's delete.
