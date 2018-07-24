@@ -14,19 +14,19 @@ parser.add_argument('-m', dest='message', help='message or title for task or oth
 
 args = parser.parse_args()
 
-CONFIG_FILE = os.path.expanduser('~') + '/.td.yml'
+CONFIG_PATH = os.path.expanduser('~') + '/.td.yml'
 config = {
     'email': '',
     'password': '',
     'token': '',
 }
-if os.path.isfile(CONFIG_FILE):
-    with open(CONFIG_FILE, 'r') as f:
+if os.path.isfile(CONFIG_PATH):
+    with open(CONFIG_PATH, 'r') as f:
         config = yaml.load(f)
 else:
     for key in config.keys():
         config[key] = getpass(prompt=key + ': ') if key == 'password' else input(key + ': ')
-    with open(CONFIG_FILE, 'w') as f:
+    with open(CONFIG_PATH, 'w') as f:
         yaml.dump(config, f)
 
 # TODO: Token login
