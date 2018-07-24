@@ -38,9 +38,10 @@ if os.stat(CONFIG_PATH).st_mode & (stat.S_IRGRP | stat.S_IROTH):
 
 user = todoist.login_with_api_token(config['token'])
 
-def tasks_repr(tasks):
-    return ['{id} {content}'.format(id=colored(hex(task.id)[2:], 'blue'),
-                                    content=colored(task.content, 'green')) for task in tasks]
+def tasks_repr(tasks, color=True):
+    # TODO: Support picking with color?
+    return ['{id} {content}'.format(id=colored(hex(task.id)[2:], 'blue') if color else hex(task.id)[2:],
+                                    content=colored(task.content, 'green') if color else task.content) for task in tasks]
 
 if args.verb == 'list':
     for task in tasks_repr(user.get_tasks()):
@@ -49,7 +50,7 @@ elif args.verb == 'add':
     user.get_project('Inbox').add_task(args.message)
 elif args.verb == 'del' or args.verb == 'delete':
     tasks = user.get_tasks()
-    _, ind = tasks_repr(tasks)
+    _, ind = pick(tasks_repr(tasks, color=False))
     # Another option is to simply use the method `complete`.
     # However, Todoist Premium may be required to get only uncompleted tasks.
     # So, for simplicity and just temporarily, let's delete.
