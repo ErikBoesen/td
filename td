@@ -5,7 +5,7 @@ import yaml
 import os
 import argparse
 from termcolor import colored
-
+from pick import pick
 
 parser = argparse.ArgumentParser(description='Manage Todoist from the command line.')
 parser.add_argument('verb')
@@ -27,9 +27,16 @@ else:
 
 api = todoist.login_with_api_token(config['token'])
 
+def task_list():
+    return ['{id} {content}'.format(id=colored(hex(task.id)[2:], 'blue'),
+                                    content=colored(task.content, 'green')) for task in api.get_tasks()]
+
+
 if args.verb == 'list':
-    for task in api.get_tasks():
-        print('{id} {content}'.format(id=colored(hex(task.id)[2:], 'blue'),
-                                      content=colored(task.content, 'green')))
+    for task in task_list():
+        print(task)
 elif args.verb == 'add':
     api.add_item(args.message)
+elif args.verb == 'del' or args.verb == 'delete':
+    tasks = task_list
+    print(pick(tasks))
