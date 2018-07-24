@@ -20,6 +20,21 @@ make uninstall
 ```
 Any of these commands may require root privileges depending on your environment.
 
+## Use
+To list all tasks:
+```sh
+td list
+```
+To add a task:
+```sh
+td add -m "Title of task"
+```
+To delete a task:
+```sh
+td delete  # or del
+# select task for deletion in interactive list
+```
+
 ## License
 [MIT](LICENSE)
 
