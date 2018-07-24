@@ -44,12 +44,12 @@ def tasks_repr(tasks, color=True):
     return ['{id} {content}'.format(id=colored(hex(task.id)[2:], 'blue') if color else hex(task.id)[2:],
                                     content=colored(task.content, 'green') if color else task.content) for task in tasks]
 
-if args.verb == 'list':
+if args.verb == 'l' or args.verb == 'list':
     for task in tasks_repr(user.get_tasks()):
         print(task)
-elif args.verb == 'add':
+elif args.verb == 'a' or args.verb == 'add':
     user.get_project('Inbox').add_task(args.message)
-elif args.verb == 'del' or args.verb == 'delete':
+elif args.verb == 'd' or args.verb == 'delete':
     tasks = user.get_tasks()
     _, ind = pick(tasks_repr(tasks, color=False), title='Select a task to delete.')
     # Another option is to simply use the method `complete`.
