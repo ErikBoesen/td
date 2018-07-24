@@ -25,14 +25,11 @@ else:
     with open(CONFIG_PATH, 'w') as f:
         yaml.dump(config, f)
 
-# TODO: Token login
 api = todoist.login_with_api_token(config['token'])
-# TODO: Bypass Inbox project entirely
-inbox = api.get_project('Inbox')
 
 if args.verb == 'list':
     for task in api.get_tasks():
         print('{id} {content}'.format(id=colored(hex(task.id)[2:], 'blue'),
                                       content=colored(task.content, 'green')))
 elif args.verb == 'add':
-    inbox.add_task(args.message)
+    api.add_item(args.message)
