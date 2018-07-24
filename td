@@ -10,6 +10,7 @@ from pick import pick
 parser = argparse.ArgumentParser(description='Manage Todoist from the command line.')
 parser.add_argument('verb')
 parser.add_argument('-m', dest='message', help='message or title for task or other object')
+parser.add_argument('-i', dest='id', help='hexadecimal ID of task upon which to act')
 
 args = parser.parse_args()
 
@@ -25,18 +26,21 @@ else:
     with open(CONFIG_PATH, 'w') as f:
         yaml.dump(config, f)
 
-api = todoist.login_with_api_token(config['token'])
+user = todoist.login_with_api_token(config['token'])
 
-def task_list():
+def tasks_repr(tasks):
     return ['{id} {content}'.format(id=colored(hex(task.id)[2:], 'blue'),
-                                    content=colored(task.content, 'green')) for task in api.get_tasks()]
-
+                                    content=colored(task.content, 'green')) for task in tasks]
 
 if args.verb == 'list':
-    for task in task_list():
+    for task in tasks_repr(user.get_tasks()):
         print(task)
 elif args.verb == 'add':
-    api.add_item(args.message)
+    user.get_project('Inbox').add_task(args.message)
 elif args.verb == 'del' or args.verb == 'delete':
-    tasks = task_list
-    print(pick(tasks))
+    tasks = user.get_tasks()
+    _, ind = tasks_repr(tasks)
+    # Another option is to simply use the method `complete`.
+    # However, Todoist Premium may be required to get only uncompleted tasks.
+    # So, for simplicity and just temporarily, let's delete.
+    tasks[ind].delete()
