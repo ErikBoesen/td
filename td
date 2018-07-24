@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
-from pytodoist import todoist
+import todoist
 import yaml
+import json
 import os
 import argparse
 from termcolor import colored
@@ -14,6 +15,7 @@ parser.add_argument('-m', dest='message', help='message or title for task or oth
 args = parser.parse_args()
 
 CONFIG_PATH = os.path.expanduser('~') + '/.td.yml'
+DATA_PATH   = os.path.expanduser('~') + '/.td.data.json'
 config = {
     'token': '',
 }
@@ -25,8 +27,11 @@ else:
     with open(CONFIG_PATH, 'w') as f:
         yaml.dump(config, f)
 
-# TODO: Token login
-api = todoist.login_with_api_token(config['token'])
+api = todoist.TodoistAPI(token=config['token'])
+if os.path.isfile(DATA_PATH):
+    with open(DATA_PATH, 'w') as f:
+        data = #
+
 # TODO: Bypass Inbox project entirely
 inbox = api.get_project('Inbox')
 
