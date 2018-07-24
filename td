@@ -27,7 +27,7 @@ else:
         yaml.dump(config, f)
 
 # TODO: Token login
-api = todoist.login(config['email'], config['password'])
+api = todoist.login_with_api_token(config['token'])
 # TODO: Bypass Inbox project entirely
 inbox = api.get_project('Inbox')
 
