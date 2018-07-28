@@ -31,9 +31,6 @@ else:
 # Check if group or public can read config and the private details therein.
 # If so, warn user.
 if os.stat(CONFIG_PATH).st_mode & (stat.S_IRGRP | stat.S_IROTH):
-    # I just implemented my first actually useful code using bitwise operators.
-    # It is 23:49 at night and I am supposed to be on vacation.
-    # Send help.
     # TODO: Write to stderr, perhaps exit, or fix perms ourself?
     print('Warning: config file may be accessible by other users.')
 
