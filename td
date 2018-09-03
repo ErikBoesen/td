@@ -10,7 +10,7 @@ from termcolor import colored
 from pick import pick
 
 parser = argparse.ArgumentParser(description='Manage Todoist from the command line.')
-parser.add_argument('verb')
+parser.add_argument('verb', nargs='?', default='list')
 parser.add_argument('-m', dest='message', help='message or title for task or other object')
 parser.add_argument('-i', dest='id', help='hexadecimal ID of task upon which to act')
 
