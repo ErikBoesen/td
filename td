@@ -32,7 +32,6 @@ else:
 # Check if group or public can read config and the private details therein.
 # If so, warn user.
 if os.stat(CONFIG_PATH).st_mode & (stat.S_IRGRP | stat.S_IROTH):
-    # TODO: Write to stderr, perhaps exit, or fix perms ourself?
     print('Warning: config file may be accessible by other users.', file=sys.stderr)
 
 user = todoist.login_with_api_token(config['token'])
